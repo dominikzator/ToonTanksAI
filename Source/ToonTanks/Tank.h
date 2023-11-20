@@ -3,17 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BasePawn.h"
-#include "GameFramework/Character.h"
-#include "AIController.h"
-
+#include "BaseCharacter.h"
 #include "Tank.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOONTANKS_API ATank : public ABasePawn
+class TOONTANKS_API ATank : public ABaseCharacter
 {
 	GENERATED_BODY()
 public:

@@ -3,26 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/CapsuleComponent.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/Pawn.h"
-#include "BasePawn.generated.h"
+#include "BaseCharacter.generated.h"
 
 UCLASS()
-class TOONTANKS_API ABasePawn : public APawn
+class TOONTANKS_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	ABasePawn();
+	ABaseCharacter();
 
 	void HandleDestruction();
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PawnComponents", meta = (AllowPrivateAccess = "true"))
-	UCapsuleComponent* CapsuleComp;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PawnComponents", meta = (AllowPrivateAccess = "true"))

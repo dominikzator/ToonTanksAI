@@ -1,24 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BasePawn.h"
+#include "BaseCharacter.h"
 
 #include "FollowingActor.h"
 #include "Projectile.h"
-#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 
 // Sets default values
-ABasePawn::ABasePawn()
+ABaseCharacter::ABaseCharacter()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("My Capsule Comp"));
-	RootComponent = CapsuleComp;
 
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
-	BaseMesh->SetupAttachment(CapsuleComp);
+	BaseMesh->SetupAttachment(RootComponent);
 
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret Mesh"));
 	TurretMesh->SetupAttachment(BaseMesh);
@@ -27,7 +24,7 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
-void ABasePawn::HandleDestruction()
+void ABaseCharacter::HandleDestruction()
 {
 	if(DeathParticleSystem)
 	{
@@ -43,7 +40,7 @@ void ABasePawn::HandleDestruction()
 	}
 }
 
-void ABasePawn::RotateTurret(FVector LookAtTarget)
+void ABaseCharacter::RotateTurret(FVector LookAtTarget)
 {
 	FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
 	FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw, 0.f);
@@ -56,7 +53,7 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 			25.f));
 }
 
-void ABasePawn::Fire()
+void ABaseCharacter::Fire()
 {
 	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
